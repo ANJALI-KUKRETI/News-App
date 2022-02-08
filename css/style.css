@@ -1,0 +1,511 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&family=Nunito:wght@600&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --red: rgb(228, 15, 15);
+  --white: white;
+  --blue: rgb(30, 197, 226);
+  --black: rgb(26, 25, 25);
+}
+html {
+  font-size: 80%;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.hidden {
+  display: none;
+}
+
+body {
+  width: 100vw;
+  overflow-x: hidden;
+  text-decoration: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* =============================Navbar=========================== */
+a {
+  text-decoration: none;
+}
+a:hover {
+  color: rgb(34, 120, 201);
+}
+header {
+  display: flex;
+  padding: 1rem 4rem;
+  font-size: 1.3rem;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  background-color: var(--black);
+  color: var(--white);
+}
+header a:hover {
+  color: var(--white);
+}
+header ul {
+  display: flex;
+  list-style: none;
+}
+header li {
+  margin: 0 0.7rem;
+  padding: 1rem 2.2rem;
+  cursor: pointer;
+}
+header li a {
+  color: var(--white);
+}
+
+header li:hover {
+  background-color: rgb(32, 32, 32);
+}
+.active {
+  background-color: var(--red);
+  border-radius: 3px;
+}
+.logo {
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+.highlight {
+  color: var(--red);
+}
+.search {
+  cursor: pointer;
+  padding: 1rem 2.2rem;
+}
+.searchBar {
+  position: absolute;
+  right: 0%;
+  top: 5.5rem;
+  z-index: 222;
+}
+.searchBar input {
+  height: 4rem;
+  width: 20rem;
+  border: none;
+  border-top: 0.5rem solid var(--red);
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  box-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
+}
+.searchBar input:focus {
+  outline: none;
+}
+.hamburger {
+  cursor: pointer;
+}
+
+/* ==========================main============================= */
+.owl-prev,
+.owl-next {
+  position: absolute;
+  z-index: 999;
+  cursor: pointer;
+}
+.owl-prev span,
+.owl-next span {
+  font-size: 4rem;
+  color: var(--white);
+}
+.owl-prev {
+  top: 38%;
+  left: 1%;
+}
+.owl-next {
+  top: 38%;
+  right: 1%;
+}
+.owl-nav[class*="owl"]:hover {
+  background-color: transparent;
+}
+.rel {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 100;
+  background-color: var(--white);
+}
+
+.image {
+  height: 60vh;
+  /* width: 50vw; */
+  position: relative;
+}
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* filter: blur(1px); */
+  transition: transform 0.8s ease;
+}
+.data {
+  position: absolute;
+  top: 60%;
+  left: 5%;
+  color: white;
+  font-size: 1.2rem;
+}
+.data .title {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.7rem;
+  margin: 1.5rem 0rem;
+}
+.data .published {
+  font-weight: 600;
+}
+
+.data .category {
+  color: var(--white);
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.6rem 1.5rem;
+  /* border-radius: 5px; */
+  background-color: var(--blue);
+}
+.image::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  transition: transform;
+}
+/* .image :hover {
+  transform: scale(1.4);
+} */
+/* =============================Posts========================== */
+
+.trendingPosts {
+  margin: 2rem 12rem;
+}
+.trendingPosts .heading,
+.part .heading {
+  font-size: 1.5rem;
+  padding: 1rem;
+  color: var(--white);
+  background-color: var(--black);
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: -0.2rem;
+}
+.helper {
+  width: 100%;
+  height: 0.2rem;
+  z-index: -1;
+  background-color: rgb(238, 234, 234);
+  margin-bottom: 3rem;
+}
+.posts {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 0.5rem;
+  row-gap: 2rem;
+}
+.post {
+  margin-bottom: 5rem;
+  color: var(--black);
+  width: 23rem;
+  padding: 1rem;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: rgb(238, 234, 234);
+  font-size: 1.08rem;
+}
+/* .post:hover {
+  color: var(--black);
+} */
+.titleTrend {
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.post .published {
+  font-weight: 600;
+  color: gray;
+}
+.imgs {
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.posts a img {
+  height: 15rem;
+  width: 22rem;
+  transition: transform 0.8s ease;
+}
+.posts a img:hover {
+  transform: scale(1.5);
+}
+.smallerPosts {
+  display: flex;
+  justify-content: space-between;
+
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.smallPost {
+  width: 30rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--black);
+}
+.smallPost .image {
+  height: 7rem;
+  width: 7rem;
+}
+.smallPost .detail {
+  width: 22rem;
+  font-weight: 700;
+}
+.smallPost .detail .title {
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+}
+.smallPost .detail .published {
+  font-size: 0.9rem;
+  color: gray;
+}
+.smallPost img {
+  height: 100%;
+  width: 100%;
+}
+.smallPost img:hover {
+  transform: none;
+}
+
+/* ========================News and sports================== */
+
+.newsAsports {
+  margin: 6rem 12rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.part {
+  width: 47%;
+}
+.part .post {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: auto;
+  background-color: transparent;
+  width: 40rem;
+}
+.part .post .title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.part .des {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: rgb(95, 93, 93);
+  font-size: 1.1rem;
+}
+.lower {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.lower .smallPost {
+  width: 38rem;
+  margin: auto;
+}
+.lower .smallPost .detail {
+  width: 30rem;
+}
+.part .imgs {
+  height: 22rem;
+  width: 39rem;
+}
+.imgs img {
+  height: 100%;
+  width: 100%;
+  transition: transform;
+}
+.imgs img :hover {
+  transform: scale((1.5));
+}
+.part .helper {
+  margin-bottom: 1.5rem;
+}
+
+/* =========================footer============================ */
+footer {
+  background-color: var(--black);
+  color: var(--white);
+  padding: 3rem 14rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer .logo {
+  font-size: 3rem;
+  font-weight: bold;
+}
+footer .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+footer .right div {
+  font-size: 2rem;
+  font-weight: 700;
+  /* margin: 2rem 0rem; */
+}
+footer .right input,
+button {
+  height: 3rem;
+  border: none;
+  font-size: 1.1rem;
+  padding: 5px;
+}
+footer button {
+  background-color: var(--red);
+  color: white;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+}
+/* ========================Responsive====================== */
+@media (max-width: 1250px) {
+  html {
+    font-size: 65%;
+  }
+  .trendingPosts {
+    margin: 2rem 5rem;
+  }
+  .newsAsports {
+    margin: 6rem 5rem;
+  }
+}
+@media (max-width: 1100px) and (min-width: 1000px) {
+  .trendingPosts {
+    margin: 2rem 10rem;
+  }
+  .newsAsports {
+    margin: 6rem 10rem;
+  }
+  .smallPost {
+    width: 38rem;
+  }
+  .smallPost .detail {
+    width: 30rem;
+  }
+}
+@media (max-width: 900px) {
+  .categories {
+    display: none;
+  }
+  .search {
+    display: none;
+  }
+  html {
+    font-size: 60%;
+  }
+  .hamburger {
+    display: block;
+  }
+  .newsAsports {
+    flex-direction: column;
+  }
+  .part {
+    width: 100%;
+
+    margin-top: 3rem;
+  }
+  .posts .post {
+    margin-bottom: 2rem;
+  }
+  .part .post {
+    width: 60vw;
+    text-align: center;
+  }
+  .part .imgs {
+    width: 60vw;
+  }
+  footer {
+    padding: 3rem 6rem;
+  }
+}
+@media (max-width: 700px) {
+  .trendingPosts {
+    margin: 2rem 5rem;
+  }
+  .newsAsports {
+    margin: 6rem 5rem;
+  }
+  .smallerPosts .smallPost,
+  .lower .smallPost {
+    margin: auto;
+    width: 70vw;
+  }
+  .smallPost .detail,
+  .lower .smallPost .detail {
+    width: 70%;
+  }
+  .smallPost .image {
+    height: 9rem;
+    width: 12rem;
+  }
+}
+@media (max-width: 570px) {
+  .posts {
+    row-gap: 0rem;
+  }
+  .post {
+    width: 35rem;
+    margin: auto;
+  }
+  .posts a img {
+    width: 33rem;
+    height: 20rem;
+  }
+  .smallerPosts .smallPost,
+  .lower .smallPost {
+    width: 90vw;
+  }
+  .smallPost .detail,
+  .lower .smallPost .detail {
+    width: 70%;
+  }
+  .smallPost .image {
+    height: 7rem;
+    width: 10rem;
+  }
+
+  .part .post {
+    width: 80vw;
+  }
+  .part .imgs {
+    width: 75vw;
+  }
+}
+@media (max-width: 420px) {
+  .trendingPosts {
+    margin: 2rem 2rem;
+  }
+  .newsAsports {
+    margin: 6rem 2rem;
+  }
+}
