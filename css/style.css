@@ -16,15 +16,17 @@ html {
   font-family: "Nunito Sans", sans-serif;
 }
 
-.hidden {
-  display: none;
-}
-
 body {
   width: 100vw;
   overflow-x: hidden;
   text-decoration: none;
 }
+/* .outer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+} */
 body::-webkit-scrollbar {
   display: none;
 }
@@ -45,6 +47,13 @@ header {
   font-weight: bold;
   background-color: var(--black);
   color: var(--white);
+}
+
+.hidden {
+  display: none;
+}
+.navbar {
+  display: none;
 }
 header a:hover {
   color: var(--white);
@@ -99,11 +108,25 @@ header li:hover {
 .searchBar input:focus {
   outline: none;
 }
-.hamburger {
-  cursor: pointer;
+
+ul {
+  margin-bottom: 0;
 }
 
 /* ==========================main============================= */
+.loader {
+  text-align: center;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.loader img {
+  width: 60px;
+  height: 60px;
+  filter: none;
+}
 .owl-prev,
 .owl-next {
   position: absolute;
@@ -136,14 +159,12 @@ header li:hover {
 
 .image {
   height: 60vh;
-  /* width: 50vw; */
   position: relative;
 }
 .image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* filter: blur(1px); */
   transition: transform 0.8s ease;
 }
 .data {
@@ -154,7 +175,7 @@ header li:hover {
   font-size: 1.2rem;
 }
 .data .title {
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-weight: bold;
   font-size: 1.7rem;
   margin: 1.5rem 0rem;
@@ -169,10 +190,9 @@ header li:hover {
   text-transform: uppercase;
   font-weight: 600;
   padding: 0.6rem 1.5rem;
-  /* border-radius: 5px; */
   background-color: var(--blue);
 }
-.image::after {
+.data .image::after {
   content: "";
   position: absolute;
   left: 0;
@@ -229,7 +249,7 @@ header li:hover {
   color: var(--black);
 } */
 .titleTrend {
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-weight: bold;
   margin-bottom: 1rem;
 }
@@ -272,7 +292,7 @@ header li:hover {
   font-weight: 700;
 }
 .smallPost .detail .title {
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-size: 1.1rem;
   margin-bottom: 0.8rem;
 }
@@ -310,7 +330,7 @@ header li:hover {
 .part .post .title {
   font-size: 1.6rem;
   font-weight: bold;
-  text-transform: uppercase;
+  text-transform: capitalize;
   margin-bottom: 1rem;
 }
 .part .des {
@@ -330,6 +350,7 @@ header li:hover {
   width: 38rem;
   margin: auto;
 }
+
 .lower .smallPost .detail {
   width: 30rem;
 }
@@ -371,7 +392,6 @@ footer .right {
 footer .right div {
   font-size: 2rem;
   font-weight: 700;
-  /* margin: 2rem 0rem; */
 }
 footer .right input,
 button {
@@ -386,6 +406,42 @@ footer button {
   text-transform: uppercase;
   font-weight: 700;
   cursor: pointer;
+}
+
+/* ======================Responsive Navbar===================== */
+.offcanvas {
+  background-color: var(--black);
+  color: var(--white);
+}
+.offcanvas a {
+  color: var(--white);
+}
+.offcanvas button {
+  font-size: 1.6rem;
+}
+.offcanvas-body li {
+  padding: 1rem;
+  cursor: pointer;
+}
+.offcanvas-body li:hover {
+  background-color: rgb(32, 32, 32);
+}
+.offcanvas-body form {
+  margin-top: 1rem;
+}
+.offcanvas-body form input {
+  font-size: 1.2rem;
+}
+
+.offcanvas-body form .btn {
+  background-color: var(--red);
+  color: var(--white);
+  font-size: 1.2rem;
+}
+
+/* =========================Second Page======================= */
+.secondpage {
+  margin: 5rem 10rem;
 }
 /* ========================Responsive====================== */
 @media (max-width: 1250px) {
@@ -414,18 +470,20 @@ footer button {
   }
 }
 @media (max-width: 900px) {
-  .categories {
-    display: none;
-  }
-  .search {
+  header {
     display: none;
   }
   html {
     font-size: 60%;
   }
-  .hamburger {
+  .navbar {
     display: block;
+    background-color: var(--black);
   }
+  .navbar-toggler-icon {
+    color: var(--white);
+  }
+
   .newsAsports {
     flex-direction: column;
   }
@@ -437,6 +495,7 @@ footer button {
   .posts .post {
     margin-bottom: 2rem;
   }
+
   .part .post {
     width: 60vw;
     text-align: center;
@@ -446,6 +505,19 @@ footer button {
   }
   footer {
     padding: 3rem 6rem;
+  }
+  .navbar {
+    display: flex;
+    padding: 1rem 4rem;
+    font-size: 1.3rem;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    background-color: var(--black);
+    color: var(--white);
+  }
+  .secondpage {
+    margin-top: 10rem;
   }
 }
 @media (max-width: 700px) {
@@ -499,6 +571,12 @@ footer button {
   }
   .part .imgs {
     width: 75vw;
+  }
+  footer .logo {
+    font-size: 2rem;
+  }
+  footer .right div {
+    font-size: 1.6rem;
   }
 }
 @media (max-width: 420px) {
