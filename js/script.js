@@ -2,29 +2,13 @@ const search = document.querySelector(".search");
 const searchBar = document.querySelector(".searchBar");
 const loader = document.querySelector(".loader");
 const container = document.querySelector(".wrapper");
-const main = document.querySelector(".main");
 const outer = document.querySelector(".outer");
 const input = document.querySelector(".input");
 const inp = document.querySelector(".inp");
 const btn = document.querySelector(".btn");
-
-// ======================Carousel==========================
-$(".owl-carousel").owlCarousel({
-  autoplay: true,
-  autoplayhoverpause: true,
-  autoplaytimeout: 100,
-  items: 2,
-  loop: true,
-  nav: true,
-  responsive: {
-    0: {
-      items: 1,
-    },
-    750: {
-      items: 2,
-    },
-  },
-});
+const cat = document.querySelectorAll(".cat");
+const formO = document.querySelector(".srchBtn");
+const offcanvas = document.querySelector(".offcanvas");
 
 // ========================Loader===============================
 function displayLoader() {
@@ -54,13 +38,26 @@ function showSearch(flag) {
   }
 }
 
+formO.addEventListener("click", () => {
+  offcanvas.classList.remove("show");
+  document.querySelector(".offcanvas-backdrop").classList.remove("show");
+});
+
+cat.forEach((c) => {
+  c.addEventListener("click", function () {
+    let curr = document.querySelector(".active");
+    curr.classList.remove("active");
+    c.classList.add("active");
+  });
+});
+
 //=============================data from API========================
 
 const fetchHeadlines = async function () {
   try {
     displayLoader();
     const res = await fetch(
-      `https://newsapi.org/v2/top-headlines?country=in&apiKey=${apis.apiKey}`
+      `https://newsapi.org/v2/top-headlines?country=in&apiKey=${apis.apiKey}&pageSize=100`
     );
     // console.log(res);
     const data = await res.json();
@@ -117,6 +114,32 @@ function trenDing(arr, func) {
   return arr.map((item) => func(item)).join(" ");
 }
 
+// =======================Components======================================
+
+function carousel(item) {
+  const titl = item.title;
+  const arr = titl.split("-");
+  // console.log(arr.length);
+  const newarr = arr.slice(0, arr.length - 1);
+  return `  <div class="one rel">
+  <a href="${item.url}" target="_blank">
+  <div class="image">
+    <img
+      src="${item.urlToImage}"
+      alt=""
+    />
+  </div>
+  <div class="data">
+    <a href="" class="category">Hot Topics!</a>
+    <div class="title">
+      ${newarr.join("")}
+    </div>
+    <div class="published">${item.author || "Unknown"}</div>
+  </div>
+  </a>
+</div>`;
+}
+
 function upperTrends(item) {
   return `<a href="${item.url}" target="_blank" class="post">
   <div class="imgs">
@@ -125,7 +148,7 @@ function upperTrends(item) {
   <div class="titleTrend">
    "${item.title}"
   </div>
-  <div class="published">"${item.author || "Unknown"}</div>
+  <div class="published">${item.author || "Unknown"}</div>
 </a>`;
 }
 function lowerTrends(item) {
@@ -187,14 +210,24 @@ function allParticularCards(data) {
   </div>
   </div>`;
 }
+
+// ===========================Displaying components=====================
+
 function mainData(data, business, sports) {
-  console.log(business);
+  // console.log(business);
   const dataN = data.articles;
   const dataB = business.articles;
   const dataS = sports.articles;
   const start1 = 0;
   const start2 = 4;
+  const start3 = 5;
   return ` 
+  <section class="main">
+      <div class="owl-carousel">
+      ${trenDing(dataN.slice(start3, start3 + 50), carousel)}
+      </div>
+    </section>
+
 <section class="trendingPosts">
   <div class="heading">Trending Posts</div>
   <div class="helper"></div>
@@ -238,12 +271,30 @@ async function displayMainData() {
   const main_page = document.createElement("div");
   main_page.innerHTML = mainData(data, business, sports);
   container.append(main_page);
+  $(".owl-carousel").owlCarousel({
+    autoplay: true,
+    autoplayhoverpause: true,
+    autoplaytimeout: 100,
+    items: 2,
+    loop: true,
+    nav: true,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      750: {
+        items: 2,
+      },
+    },
+  });
 }
-async function displayParticular(data, page) {
+
+// ======================Carousel==========================
+
+async function displayParticular(data) {
   outer.innerHTML = "";
-  main.classList.add("hidden");
   container.classList.add("hidden");
-  const part = await fetchCategory(data, page);
+  const part = await fetchCategory(data);
   console.log(part);
   const tag = document.createElement("div");
   tag.innerHTML = allParticularCards(part.articles);
@@ -257,11 +308,9 @@ async function showSearchResults(e) {
       showSearch(flag);
       outer.innerHTML = "";
       const val = input.value.toLowerCase();
-      console.log(val);
+      // console.log(val);
       if (val.length > 0) {
         const data = await fetchBySearch(val);
-
-        main.classList.add("hidden");
         container.classList.add("hidden");
         const tag = document.createElement("div");
         tag.innerHTML = allParticularCards(data.articles);
@@ -279,10 +328,9 @@ async function showSearchResultsSmall() {
   try {
     outer.innerHTML = "";
     const val = inp.value.toLowerCase();
-    console.log(val);
+    // console.log(val);
     if (val.length > 0) {
       const data = await fetchBySearch(val);
-      main.classList.add("hidden");
       container.classList.add("hidden");
       const tag = document.createElement("div");
       tag.innerHTML = allParticularCards(data.articles);
@@ -295,6 +343,9 @@ async function showSearchResultsSmall() {
     window.alert(err.message);
   }
 }
+
+// ========================event listeners=========================
+
 input.addEventListener("keyup", (e) => {
   showSearchResults(e);
 });
@@ -306,18 +357,13 @@ window.addEventListener("hashchange", () => {
   if (window.location.hash.slice(1) === "home") {
     const secondPage = document.querySelector(".secondpage");
     secondPage.remove();
-    // mainPage.classList.remove("hidden");
-    // outer.append(mainPage);
-    main.classList.remove("hidden");
     container.classList.remove("hidden");
-    outer.append(main);
     outer.append(container);
   } else {
-    displayParticular(window.location.hash.slice(1), 1);
+    displayParticular(window.location.hash.slice(1));
   }
 });
 window.addEventListener("load", () => {
   displayMainData();
-  main.classList.remove("hidden");
   container.classList.remove("hidden");
 });
