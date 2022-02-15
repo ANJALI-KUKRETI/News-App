@@ -124,7 +124,7 @@ ul {
   text-align: center;
   display: none;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -524,6 +524,9 @@ footer button {
     color: var(--white);
   }
   .secondpage {
+    margin: 5rem 4rem;
+  }
+  .secondpage {
     margin-top: 10rem;
   }
 }
@@ -572,7 +575,6 @@ footer button {
     height: 7rem;
     width: 10rem;
   }
-
   .part .post {
     width: 80vw;
   }

@@ -22,21 +22,9 @@ const apis = {
   apiKey: "10e3d4b8064742fc9e5bd3093ffbfe8b",
 };
 
-let flag = 1;
 search.addEventListener("click", () => {
-  showSearch(flag);
+  searchBar.classList.toggle("hidden");
 });
-function showSearch(flag) {
-  if (flag) {
-    searchBar.classList.remove("hidden");
-    search.style.backgroundColor = "rgb(228, 15, 15)";
-    flag = !flag;
-  } else {
-    searchBar.classList.add("hidden");
-    search.style.backgroundColor = "";
-    flag = !flag;
-  }
-}
 
 formO.addEventListener("click", () => {
   offcanvas.classList.remove("show");
@@ -45,8 +33,14 @@ formO.addEventListener("click", () => {
 
 cat.forEach((c) => {
   c.addEventListener("click", function () {
-    let curr = document.querySelector(".active");
-    curr.classList.remove("active");
+    let curr = document.querySelectorAll(".active");
+    curr.forEach(async (cur) => {
+      cur.classList.remove("active");
+      if (offcanvas.classList.contains("show")) {
+        offcanvas.classList.remove("show");
+        document.querySelector(".offcanvas-backdrop").classList.remove("show");
+      }
+    });
     c.classList.add("active");
   });
 });
@@ -97,7 +91,7 @@ const fetchBySearch = async function (query) {
       `https://newsapi.org/v2/everything?q=${query}&sortBy=popularity&apiKey=${apis.apiKey}&pageSize=100`
     );
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     if (!res.ok) throw new Error("No data found!");
     if (res.ok) {
       hideLoader();
@@ -295,7 +289,7 @@ async function displayParticular(data) {
   outer.innerHTML = "";
   container.classList.add("hidden");
   const part = await fetchCategory(data);
-  console.log(part);
+  // console.log(part);
   const tag = document.createElement("div");
   tag.innerHTML = allParticularCards(part.articles);
   outer.append(tag);
@@ -304,8 +298,7 @@ async function displayParticular(data) {
 async function showSearchResults(e) {
   try {
     if (e.keyCode === 13) {
-      flag = 0;
-      showSearch(flag);
+      searchBar.classList.add("hidden");
       outer.innerHTML = "";
       const val = input.value.toLowerCase();
       // console.log(val);
