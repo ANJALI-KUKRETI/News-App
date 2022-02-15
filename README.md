@@ -12,3 +12,10 @@ https://user-images.githubusercontent.com/89701349/154019587-b704d386-912b-4726-
 - Get news headline
 - Get news by category
 - Get news including a keyword
+
+## Tech Stack👩‍💻
+
+- HTML
+- CSS
+- Bootstrap
+- Vanilla js
