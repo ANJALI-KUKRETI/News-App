@@ -18,6 +18,7 @@ https://user-images.githubusercontent.com/89701349/154633659-0c516afb-3a5d-4fc3-
 - Get news headline
 - Get news by category
 - Get news including a keyword
+- SPA implemented using hashchange
 
 ## Tech Stack👩‍💻
 
